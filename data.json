@@ -1,0 +1,10 @@
+{
+  "produk": [
+    { "nama": "sepatu adidas", "harga": 750000 },
+    { "nama": "kaos nike", "harga": 150000 }
+  ],
+  "pesanan": [
+    { "id": "12345", "status": "dalam pengiriman" },
+    { "id": "67890", "status": "sudah sampai" }
+  ]
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chat CS AndezStore</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    .chat-box { border: 1px solid #ccc; padding: 10px; height: 400px; overflow-y: auto; }
+    .user { text-align: right; margin: 5px 0; }
+    .bot { text-align: left; margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <h2>Chat dengan CS AndezStore</h2>
+  <div class="chat-box" id="chatBox"></div>
+  <input type="text" id="message" placeholder="Tulis pesan..." style="width:80%">
+  <button onclick="sendMessage()">Kirim</button>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("message");
+      const text = input.value;
+      if (!text) return;
+
+      appendChat("user", text);
+      input.value = "";
+
+      const res = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text })
+      });
+      const data = await res.json();
+      appendChat("bot", data.response);
+    }
+
+    function appendChat(sender, message) {
+      const chatBox = document.getElementById("chatBox");
+      const msg = document.createElement("div");
+      msg.className = sender;
+      msg.innerText = message;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
